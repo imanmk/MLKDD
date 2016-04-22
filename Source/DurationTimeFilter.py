@@ -13,5 +13,5 @@ with open('traindata.csv', 'r') as inp, open('traindataNoDuration.csv', 'w') as 
             s = row[10]
             if not s:
                 continue
-            if float(s) <= 125:
+            if float(s) <= 105:
                 writer.writerow(row)
