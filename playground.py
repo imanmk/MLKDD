@@ -1,5 +1,7 @@
 
-
+#
+# playground.py
+# 4/22/16
 
 import numpy as np
 import pandas as pd
@@ -31,7 +33,7 @@ encoded_stepName = le_stepName.fit_transform(stepName)
 
 
 # Plot input data points
-plt.scatter(cfa, encoded_studentId, marker='o', c='b', label='Training data')
+# plt.scatter(cfa, encoded_studentId, marker='o', c='b', label='Training data')
 plt.title("Profit With Respect to Population")
 plt.xlabel("Population")
 plt.ylabel("Profit")
@@ -40,5 +42,5 @@ plt.ylabel("Profit")
 # plt.plot(studentId, cfa, c='r', label='Current hypothesis')
 plt.legend(loc=4)
 
-plt.show()
+# plt.show()
 
