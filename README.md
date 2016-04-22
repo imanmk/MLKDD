@@ -1,3 +1,10 @@
+README.md
+=========
+
+Machine Learning Project Based on KDD Cup 2010
+-----------------------------------------------
+
+
 ## Synopsis
 
 At the top of the file there should be a short introduction and/ or 
