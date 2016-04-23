@@ -48,4 +48,4 @@ applicable.
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+Under the terms of the GNU General Public License
