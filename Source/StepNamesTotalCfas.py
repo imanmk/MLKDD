@@ -27,6 +27,8 @@ uniqueProblemStepName = []
 totalProblemViews = [0]
 totalCfas = [0]
 
+
+
 # **************************************************************************
 
 # Check to see if there is a CFA
@@ -63,7 +65,8 @@ with open('problemStepNamesTotalCfas.csv', 'w') as csvfile:
     for x in range(len(uniqueProblemStepName)):
         writer.writerow(
             {'Row': rowNum[x], 'Problem Name': uniqueProblemStepName[x].split(";")[0],
-             'Step Name': uniqueProblemStepName[x].split(";")[1], 'Total Correct First Attempts': totalCfas[x]})
+             'Step Name': uniqueProblemStepName[x].split(";")[1],
+             'Problem View': totalProblemViews[x], 'Total Correct First Attempts': totalCfas[x]})
 
 
 # **************************************************************************
