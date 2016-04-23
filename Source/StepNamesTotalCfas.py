@@ -17,10 +17,14 @@ import csv
 dataFile = pd.read_csv("traindataNoDuration.csv", header=0)
 
 stepName = dataFile["Step Name"]
+problemName = dataFile["Problem Name"]
+problemView = dataFile["Problem View"]
 cfa = dataFile["Correct First Attempt"]
+
 rowNum = dataFile["Row"]
 
-uniqueStepNameArray = []
+uniqueProblemStepName = []
+totalProblemViews = [0]
 totalCfas = [0]
 
 # **************************************************************************
@@ -34,28 +38,32 @@ totalCfas = [0]
 
 for i in range(len(stepName)):
     if cfa[i]:
-        if stepName[i] in uniqueStepNameArray:
-            uniqueStepNameList = uniqueStepNameArray.tolist()
-            j = uniqueStepNameList.index(stepName[i])
+        if problemName[i] + ";" + stepName[i] in uniqueProblemStepName:
+            uniqueProblemStepNameList = uniqueProblemStepName.tolist()
+            j = uniqueProblemStepNameList.index(problemName[i] + ";" + stepName[i])
             totalCfas[j] = totalCfas[j] + cfa[i]
-            print("Step Name in row {:d} = Step Name in row  {:d}".format(i, j))
+            if problemView[i]:
+                totalProblemViews[j] = totalProblemViews[j] + problemView[i]
+            print("Prob Step Name in row {:d} = Prob Step Name in row  {:d}".format(i, j))
 
         else:
-            uniqueStepNameArray = np.append(uniqueStepNameArray, stepName[i])
+            uniqueProblemStepName = np.append(uniqueProblemStepName, problemName[i]
+                                              + ";" + stepName[i])
             totalCfas = np.append(totalCfas, cfa[i])
-            print("New unique step name in row {:d} added".format(i))
+            totalProblemViews = np.append(totalProblemViews, problemView[i])
+            print("New unique step name & prob view in row {:d} added".format(i))
 
 
 # **************************************************************************
 
-with open('stepNamesTotalCfas.csv', 'w') as csvfile:
-    fieldnames = ['Row', 'Step Name', 'Total Correct First Attempts']
+with open('problemStepNamesTotalCfas.csv', 'w') as csvfile:
+    fieldnames = ['Row', 'Problem Name', 'Step Name', 'Problem View', 'Total Correct First Attempts']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
-    for x in range(len(uniqueStepNameArray)):
+    for x in range(len(uniqueProblemStepName)):
         writer.writerow(
-            {'Row': rowNum[x], 'Step Name': uniqueStepNameArray[x],
-             'Total Correct First Attempts': totalCfas[x]})
+            {'Row': rowNum[x], 'Problem Name': uniqueProblemStepName[x].split(";")[0],
+             'Step Name': uniqueProblemStepName[x].split(";")[1], 'Total Correct First Attempts': totalCfas[x]})
 
 
 # **************************************************************************
