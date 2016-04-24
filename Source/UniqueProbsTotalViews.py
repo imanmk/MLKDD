@@ -70,7 +70,7 @@ with open('uniqueProbsTotalViews.csv', 'w') as csvfile:
         writer.writerow(
             {'Row': rowNum[x], 'Problem Hierarchy': uniqueProblems[x].split(";")[0],
              'Problem Name': uniqueProblems[x].split(";")[1],
-             'Problem View': totalProblemViews[x], 'Total Correct First Attempts': totalCfas[x]})
+             'Problem View': totalProblemViews[x], 'Total CFAs for Steps in this Problem': totalCfas[x]})
 
 
 # **************************************************************************
