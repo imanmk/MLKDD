@@ -5,6 +5,13 @@
 
 # Produce a CSV with unique problems that have total views < 20
 
+# traindataFilteredByView.py reads from a csv file calledfilteredProbByView20 which
+# includes unique problem names that have views less than 20 from a CSV file, which
+# included all unique probs and total views for them.
+
+# Order of filtering:
+# UniqueProbsTotalViews —> UniqueProbViewFilter —> trainDataFilterdByView
+
 import csv
 import time
 
