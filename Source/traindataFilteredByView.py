@@ -15,6 +15,8 @@ import time
 
 # **************************************************************************
 
+# save the time before running main
+
 start_time = time.time()
 
 
@@ -22,26 +24,28 @@ def main():
 
     # import data file
     dataFile = pd.read_csv("filteredProbByView20.csv", header=0)
-
     uniqueProblems = dataFile["Unique Problem"].tolist()
 
+    # save indexes of problem hierarchy and problem name from filteredProbByView20.csv
     problemHierarchyColumnIndex = 2
     problemNameColumnIndex = 3
 
-    #print(uniqueProblems)
+    # print(uniqueProblems)
+
     # **************************************************************************
 
     with open('traindataNoDuration.csv', 'r') as inp, open('traindataFilteredByView20.csv', 'w') as out:
         writer = csv.writer(out)
         i = 0
         for row in csv.reader(inp):
-            # firstRow
+            # firstRow - skip checkings
             if i == 0:
                 writer.writerow(row)
                 i = i + 1
             else:
                 i = i + 1
                 # print("Row number = ", i)
+                # get the current
                 problemHierarchy = row[problemHierarchyColumnIndex]
                 problemName = row[problemNameColumnIndex]
 
