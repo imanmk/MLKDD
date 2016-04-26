@@ -133,10 +133,16 @@
 								<h2>Problem Description</h2>
 							</header>
 
-							<p>The description should include keywords identified from current job openings on data science and machine learning.</p>
+							<p>
+								The description should include keywords identified from current job openings on data science and machine learning.
+								Here are some buzzwords we found so far that applies to our project:
+							</p>
 							<ul>
 								<li>predictive modeling</li>
 								<li>data analysis</li>
+								<li>educational data mining</li>
+								<li>strong visualization skills</li>
+								<li>statistical analytics</li>
 							</ul>
 
 						</div>
@@ -149,14 +155,98 @@
 							<header>
 								<h2>Data Description</h2>
 							</header>
-
 							<p>
-								Provide detailed discussion on how you selected training data, validation data, and test data for your project.  <strong>At this point,
-								datasets should be ready for your project.</strong>
+								The data set used in our project is based on <strong>Algebra I 2005-2006</strong> from
+								<a href="https://pslcdatashop.web.cmu.edu/KDDCup/">KDD Cup 2010: Educational Data Mining Challenge</a>.
+								We have applied multiple levels of filtering to exclude data we see as unnecessary to train our models.
+							</p>
+
+							<h3>Filter 1: Duration Time</h3>
+							<p>
+								<br />
+								Through data analysis, we have found that 95% of students spend at most 105 seconds on each interaction step.
+								We have excluded interaction steps that exceed this number; perhaps the students spending too much time are
+							  preoccupied with doing other things.  Therefore, these steps' Correct First Attempts (CFAs) are not as convincing
+								as other samples.  The following histogram shows this phenomenon:
+							</p>
+							<img src="images/filter1Graph.png" height=70% width=70% />
+							<p>
+								<br />
+								Because a step duration of 0-105 seconds covers 95% of interaction steps, such a step duration is likely to be
+								included in the test data.
 							</p>
 							<p>
-								The data set used in our project is <strong>Algebra I 2005-2006</strong> from
-								<a href="https://pslcdatashop.web.cmu.edu/KDDCup/">KDD Cup 2010: Educational Data Mining Challenge</a>.
+								The algorithm is applied in <a href="https://github.com/imanmk/MLKDD/blob/master/Source/DurationTimeFilter.py">Source/DurationTimeFilter.py</a>,
+								and outputs to file, "traindataNoDuration.csv".  This file contains 769,300 interaction steps (~95% of original data set).
+							</p>
+							<br />
+							<h3>Filter 2: Problem Frequency</h3>
+							<p>
+								<br />
+								For our second filter, some small feature engineering is applied to categorize each unique problems by string
+								concatenating problem hierarchy with problem name.  For example:
+								<table>
+									<tr>
+										<td><b>Problem Hierarchy</b></td>
+										<td><b>Problem Name</b></td>
+										<td><b>Unique Identifier</b></td>
+									</tr>
+									<tr>
+										<td>Unit ES_04, Section ES_04-1</td>
+										<td>EG40</td>
+										<td>Unit ES_04, Section ES_04-1;EG40</td>
+									</tr>
+								</table>
+								Based on the generated unique identifiers for the problems, their problem view totals are calculated, and any
+								problems that have a problem view total less than 20 are eliminated from the training set.
+								About 3.5% of students in the data set viewed such problems.  3.5% is a good threshold because the unique problems
+								viewed by 1-2% of students does not reduce the training set by any significant amount.
+								This reduces the number of unique problems' view count by ~10%, calculated by the following formula:
+								(sum of Problem View Totals | Problem View Total > 20) / (sum of Problem View Totals) = ~89.66%
+								<br />
+								<br />
+								As a toy example to explain the above formula, consider the following:
+								<br />
+								<br />
+								<table>
+									<tr>
+										<td><b>Unique Problem</b></td>
+										<td><b>Total Unique Problem View</b></td>
+									</tr>
+									<tr>
+										<td>Unit CTA1_06, Section CTA1_06-4;L6FB07</td>
+										<td>80</td>
+									</tr>
+									<tr>
+										<td>Unit CTA1_02, Section CTA1_02-2;BH1T35B</td>
+										<td>42</td>
+									</tr>
+									<tr>
+										<td>Unit CTA1_02, Section CTA1_02-2;BH1T21C</td>
+										<td>19</td>
+									</tr>
+								</table>
+								The formula would then produce:
+								<br />
+								(80 + 42) / (80 + 42 + 19) = 87%
+							</p>
+							<p>
+								If these Unique Problem Identifiers were sorted by their Problem View Total, the following graph is generated:
+							</p>
+							<img src="images/uniqueProbTotalViews.png" height=70% width=70% />
+							<p>
+								As you can see above, most of the problems have a Problem View Total between 0-150.
+							</p>
+							<p>
+								The algorithm is applied in the following files:
+								<br />
+								<a href="https://github.com/imanmk/MLKDD/blob/master/Source/UniqueProbsTotalViews.py">Source/UniqueProbsTotalViews.py</a>
+								<br />
+								<a href="https://github.com/imanmk/MLKDD/blob/master/Source/UniqueProbViewFilter.py">Source/UniqueProbViewFilter.py</a>
+								<br />
+								<a href="https://github.com/imanmk/MLKDD/blob/master/Source/traindataFilteredByView.py">Source/traindataFilteredByView.py</a>,
+								<br />
+								and outputs to file, "filteredProbByView20.csv".  This file contains 616,977 interaction steps (~80% of filter 1 data set, "traindataNoDuration.csv").
 							</p>
 						</div>
 					</section>
