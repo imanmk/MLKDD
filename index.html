@@ -199,8 +199,8 @@
 								</table>
 								Based on the generated unique identifiers for the problems, their problem view totals are calculated, and any
 								problems that have a problem view total less than 20 are eliminated from the training set.
-								About 3.5% of students in the data set viewed such problems.  3.5% is a good threshold because the unique problems
-								viewed by 1-2% of students does not reduce the training set by any significant amount.
+								About 3.5% of students in the data set viewed such problems.  3.5% is a good threshold because
+								it is very likely that test data can come from the problems that got viewed from top 96.5% of students. 
 								This reduces the number of unique problems' view count by ~10%, calculated by the following formula:
 								(sum of Problem View Totals | Problem View Total > 20) / (sum of Problem View Totals) = ~89.66%
 								<br />
