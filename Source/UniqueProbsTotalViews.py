@@ -19,8 +19,9 @@ import time
 start_time = time.time()
 
 def main():
+
     # import data file
-    dataFile = pd.read_csv("traindataNoDuration.csv", header=0)
+    dataFile = pd.read_csv("traindataFilteredByView20.csv", header=0)
 
     problemHierarchy = dataFile["Problem Hierarchy"]
     stepName = dataFile["Step Name"]
@@ -28,7 +29,6 @@ def main():
     problemView = dataFile["Problem View"]
     studentId = dataFile["Anon Student Id"]
     cfa = dataFile["Correct First Attempt"]
-
     rowNum = dataFile["Row"]
 
     uniqueProblems = []
@@ -73,14 +73,14 @@ def main():
 
     # **************************************************************************
 
-    with open('uniqueProbsTotalViewsNew.csv', 'w') as csvfile:
-        fieldnames = ['Row', 'Unique Problem', 'Problem View', 'Total CFAs for Steps in this Problem']
+    with open('uniqueProbsTotalViews.csv', 'w') as csvfile:
+        fieldnames = ['Row', 'Unique Problem', 'Problem View']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for x in range(len(uniqueProblems)):
             writer.writerow(
                 {'Row': rowNum[x], 'Unique Problem': uniqueProblems[x],
-                 'Problem View': totalProblemViews[x], 'Total CFAs for Steps in this Problem': totalCfas[x]})
+                 'Problem View': totalProblemViews[x]})
 
 
 

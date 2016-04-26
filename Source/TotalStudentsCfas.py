@@ -15,7 +15,7 @@ import csv
 # **************************************************************************
 
 # import data file
-dataFile = pd.read_csv("traindataNoDuration.csv", header=0)
+dataFile = pd.read_csv("traindataFilteredByView20.csv", header=0)
 
 studentId = dataFile["Anon Student Id"]
 cfa = dataFile["Correct First Attempt"]
