@@ -125,7 +125,7 @@
 								This project is based on <a href="https://pslcdatashop.web.cmu.edu/KDDCup/">KDD Cup's 2010 Educational Data Mining Challenge.</a>
 								Using a dataset from this competition, we use <strong>predictive modeling</strong>
 								to learn whether a student correctly answers algebraic problems on the first attempt.  While performing <strong>data analysis</strong>,
-								we noticed that the size of the data set may be too large for training our model.  As a solution, we perform filtering techniques
+								we noticed that the size of the dataset may be too large for training our model.  As a solution, we perform filtering techniques
 								to only include data that we believe is meaningful.  <strong>Feature engineering</strong> is also researched and applied to
 								produce more meaningful features.  Our ultimate goal is to train and test <strong>transformable models</strong>
 								to predict Correct First Attempts with accuracy and precision.
@@ -142,7 +142,7 @@
 								<h2>Data Description</h2>
 							</header>
 							<p>
-								The data set used in our project is <strong>Algebra I 2005-2006</strong> from KDD Cup 2010,
+								The dataset used in our project is <strong>Algebra I 2005-2006</strong> from KDD Cup 2010,
 								containing 813,661 interaction steps.	We have applied multiple levels of filtering to exclude
 								data we see as unnecessary to train our models.
 							</p>
@@ -163,7 +163,7 @@
 							</p>
 							<p>
 								The algorithm is applied in <a href="https://github.com/imanmk/MLKDD/blob/master/Source/DurationTimeFilter.py">Source/DurationTimeFilter.py</a>,
-								and outputs to file, "traindataNoDuration.csv".  This file contains 769,300 interaction steps (~95% of original data set).
+								and outputs to file, "traindataNoDuration.csv".  This file contains 769,300 interaction steps (~95% of original dataset).
 							</p>
 							<br />
 							<h3>Filter 2: Problem Frequency</h3>
@@ -185,7 +185,7 @@
 								</table>
 								Based on the generated unique identifiers for the problems, their problem view totals are calculated, and any
 								problems that have a problem view total less than 20 are eliminated from the training set.
-								About 3.5% of students in the data set viewed such problems.  3.5% is a good threshold because
+								About 3.5% of students in the dataset viewed such problems.  3.5% is a good threshold because
 								it is very likely that test data can come from the problems that got viewed from top 96.5% of students.
 								This reduces the number of unique problems' view count by ~10%, calculated by the following formula:
 								(sum of Problem View Totals | Problem View Total > 20) / (sum of Problem View Totals) = ~89.66%
@@ -232,7 +232,7 @@
 								<br />
 								<a href="https://github.com/imanmk/MLKDD/blob/master/Source/traindataFilteredByView.py">Source/traindataFilteredByView.py</a>,
 								<br />
-								and outputs to file, "filteredProbByView20.csv".  This file contains 616,977 interaction steps (~80% of filter 1 data set, "traindataNoDuration.csv").
+								and outputs to file, "filteredProbByView20.csv".  This file contains 616,977 interaction steps (~80% of filter 1 dataset, "traindataNoDuration.csv").
 							</p>
 						</div>
 					</section>
@@ -246,8 +246,27 @@
 								<h2>Machine Learning Methods</h2>
 							</header>
 
+							<h3>Recommended System</h3>
+
 							<p>
-								Provide detailed discussion and illustration examples for the machine learning method(s) used for the project.
+								Recommended systems perform data analysis to make predictions about the rating a user will
+								give to specific items.  Sites like Netflix and Amazon use recommended systems to suggest
+								movies or products to their consumers.  This type of model is applied in the published paper from KDD Cup 2010,
+								<a href="">Collaborative Filtering Applied to Educational Data Mining</a>.  The applied method
+								is to use <strong>K-Nearest-Neighbor</strong> and <strong>Singular Value Decomposition</strong> models to predict CFA's using
+								a student-step matrix based on student IDs and the interaction steps.  This process is shown with the
+								following diagram:
+							</p>
+
+							<img src="images/matrixPred.png" height=70% width=70% />
+
+							<p>
+								The prediction equation is given:
+								<br />
+								<img src="http://latex.codecogs.com/gif.latex?\^{c}_{is} = a_{i}^{T} \cdot b_{s}" border="0" width=10% />
+								<br />
+								Because we know the features of student s, and we know the features of step i, we can then predict if
+								student s can correctly answer step i.
 							</p>
 
 						</div>
