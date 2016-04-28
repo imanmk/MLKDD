@@ -52,8 +52,8 @@
 								<li><a href="#problem" id="problem-link" class="skel-layers-ignoreHref"><span class="icon fa-info">Problem Description</span></a></li>
 								<li><a href="#data" id="data-link" class="skel-layers-ignoreHref"><span class="icon fa-filter">Data Description</span></a></li>
 								<li><a href="#methods" id="methods-link" class="skel-layers-ignoreHref"><span class="icon fa-code">Methods</span></a></li>
-								<li><a href="#github" class="skel-layers-ignoreHref"><span class="icon fa-github">Github</span></a></li>
 								<li><a href="#design" id="design-link" class="skel-layers-ignoreHref"><span class="icon fa-gears">Experimental Design</span></a></li>
+								<li><a href="#github" class="skel-layers-ignoreHref"><span class="icon fa-github">Github</span></a></li>
 								<li><a href="reports.html#reports" id="reports-link" class="skel-layers-ignoreHref"><span class="icon fa-calendar">Weekly Meeting Reports</span></a></li>
 							</ul>
 						</nav>
@@ -283,7 +283,7 @@
 							<h3>K-Nearest Neighbors</h3>
 
 							<p>
-								K nearest neighbors (KNN) algorithm is a non parametric lazy learning algorithm.
+								The K-Nearest Neighbors (KNN) algorithm is a non parametric lazy learning algorithm.
 								It internally stores all the given train data and classifies new test input based on a similarity metric such as distance.
 							</p>
 
@@ -354,8 +354,8 @@
 
 							<p>
 							  This type of model is applied in the published paper from KDD Cup 2010,
-								<a href="">Collaborative Filtering Applied to Educational Data Mining</a>.  The following table
-								is a comparison between the above example and this dataset:
+								<a href="http://pslcdatashop.org/KDDCup/workshop/papers/KDDCup2010_Toescher_Jahrer.pdf">Collaborative Filtering Applied to Educational Data Mining</a>.
+								The following table is a comparison between the above example and this dataset:
 							</p>
 
 							<table>
@@ -387,7 +387,7 @@
 								</tr>
 							</table>
 
-							<h3>Decomposing the Student-Step Matrix</h4>
+							<h3>Decomposing the Student-Step Matrix</h3>
 
 							<p>
 								Find matrix A and B such that the product of the matrices <img src="http://latex.codecogs.com/gif.latex?AB^{T}" border="0" />
@@ -418,6 +418,61 @@
 						</div>
 					</section>
 
+
+				<!-- Experimental Design -->
+					<section id="design" class="three">
+						<div class="container">
+
+							<header>
+								<h2>Experimental Design</h2>
+							</header>
+							<p>
+								Please discuss how you will thoroughly test the machine learning method(s) using the datasets you construct.
+							</p>
+
+							<h3>K-Nearest Neighbors</h3>
+
+							<p>
+								<b>Choosing K:</b> For KNN, we will consider plotting a graph of RMSE vs K and apply the elbow method to
+								find a "good enough" number of nearest neighbors.
+							</p>
+
+							<p>
+								<b>Weight Function:</b> For choosing the right weight to be assigned to neighbors, we are going to experiment with different weights, such as:
+								<ul>
+									<li><i>Uniform:</i> "All points in each neighborhood are weighted equally."</li>
+									<li>
+										<i>Distance:</i> "weight points by the inverse of their distance."
+										In other words, closer neighbors of the input test point will have more impact on the prediction result.
+									</li>
+									<li>
+										<i>Our own defined weight algorithm:</i> Our team will attempt to experiment with other suitable weighting techniques
+										that we can create using our knowledge of existing weight functions.
+									</li>
+								</ul>
+							</p>
+
+							<p>
+								<b>Algorithm:</b> There are 5 main algorithms provided by sklearn library to compute the nearest neighbors:
+								"ball_tree", "kd_tree", "brute" and "auto". Our team will study and analyse these algorithms in details to choose
+								the method that works the best to use it in our KNN model.
+							</p>
+
+							<p>
+								<b>Distance Function:</b> Euclidean, Manhattan and Minkowski are among the most popular distance functions.
+								Choosing the suitable function depends on our data. Therefore, we will experiment with these functions to
+								find the metric that suits our data best.
+							</p>
+
+							<p>
+								<b>n_jobs:</b> The number of jobs / threads to run for neighbors search. If observed that we need to lower the time complexity
+								of the search we will set this parameter to "-1", which means the number of jobs created is equal to the number of
+								CPU cores we have in our computers.
+							</p>
+
+						</div>
+					</section>
+
 				<!-- Github Repository -->
 					<section id="github" class="three">
 						<div class="container">
@@ -435,20 +490,6 @@
 						</div>
 					</section>
 
-				<!-- Experimental Design -->
-					<section id="design" class="three">
-						<div class="container">
-
-							<header>
-								<h2>Experimental Design</h2>
-							</header>
-
-							<p>
-								Please discuss how you will thoroughly test the machine learning method(s) using the datasets you construct.
-							</p>
-
-						</div>
-					</section>
 			</div>
 
 		<!-- Footer -->
