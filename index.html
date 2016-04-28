@@ -145,8 +145,9 @@
 							</header>
 							<p>
 								The dataset used in our project is <strong>Algebra I 2005-2006</strong> from KDD Cup 2010,
-								containing 813,661 interaction steps.	We have applied multiple levels of filtering to exclude
-								data we see as unnecessary to train our models.
+								containing 813,661 interaction steps. Descriptions of features can be found
+								<a href="https://pslcdatashop.web.cmu.edu/KDDCup/rules_data_format.jsp">on the KDD Data Format page.</a>
+								We have applied multiple levels of filtering to exclude	data we see as unnecessary to train our models.
 							</p>
 
 							<h3>Filter 1: Duration Time</h3>
@@ -165,7 +166,8 @@
 							</p>
 							<p>
 								The algorithm is applied in <a href="https://github.com/imanmk/MLKDD/blob/master/Source/DurationTimeFilter.py">Source/DurationTimeFilter.py</a>,
-								and outputs to file, "traindataNoDuration.csv".  This file contains 769,300 interaction steps (~95% of original dataset).
+								and outputs to file, <a href="https://github.com/imanmk/MLKDD/blob/master/CSV/traindataNoDuration.csv">traindataNoDuration.csv</a>.
+								This file contains 769,300 interaction steps (~95% of original dataset).
 							</p>
 							<br />
 							<h3>Filter 2: Problem Frequency</h3>
@@ -190,6 +192,8 @@
 								About 3.5% of students in the dataset viewed such problems.  3.5% is a good threshold because
 								it is very likely that test data can come from the problems that got viewed from top 96.5% of students.
 								This reduces the number of unique problems' view count by ~10%, calculated by the following formula:
+								<br />
+								<br />
 								(sum of Problem View Totals | Problem View Total > 20) / (sum of Problem View Totals) = ~89.66%
 								<br />
 								<br />
@@ -234,7 +238,9 @@
 								<br />
 								<a href="https://github.com/imanmk/MLKDD/blob/master/Source/traindataFilteredByView.py">Source/traindataFilteredByView.py</a>,
 								<br />
-								and outputs to file, "filteredProbByView20.csv".  This file contains 616,977 interaction steps (~80% of filter 1 dataset, "traindataNoDuration.csv").
+								and outputs to file, <a href="https://github.com/imanmk/MLKDD/blob/master/CSV/traindataFilteredByView20.csv">traindataFilteredByView20.csv</a>.
+								This file contains 616,977 interaction steps (~80% of filter 1 dataset,
+								<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/traindataNoDuration.csv">traindataNoDuration.csv</a>).
 							</p>
 
 							<h3>Final Datasets</h3>
@@ -242,13 +248,23 @@
 								The final datasets generated for our experiments are the following:
 							</p>
 							<ul>
-								<li>test.csv is 20% of traindataFilteredByView20.csv (Randomly selected)</li>
-								<li>trainValid.csv is 80% of the remaining</li>
-								<li>train.csv is 80% of trainValid.csv (Randomly generated)</li>
-								<li>validation.csv is the remaining 20%</li>
+								<li>
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/test.csv">test.csv</a> is 20% of
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/traindataFilteredByView20.csv">traindataFilteredByView20.csv</a> (Randomly selected)
+								</li>
+								<li>
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/trainValid.csv">trainValid.csv</a> is 80% of the remaining
+								</li>
+								<li>
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/train.csv">train.csv</a> is 80% of
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/trainValid.csv">trainValid.csv</a> (Randomly generated)
+								</li>
+								<li>
+									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/validation.csv">validation.csv</a> is the remaining 20%
+								</li>
 							</ul>
 							<p>
-								Therefore, our new train.csv has 394,865 rows.
+								Therefore, our new <a href="https://github.com/imanmk/MLKDD/blob/master/CSV/train.csv">train.csv</a> has 394,865 rows.
 							</p>
 						</div>
 					</section>
