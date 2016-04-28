@@ -251,20 +251,75 @@
 							<p>
 								Recommended systems perform data analysis to make predictions about the rating a user will
 								give to specific items.  Sites like Netflix and Amazon use recommended systems to suggest
-								movies or products to their consumers.  This type of model is applied in the published paper from KDD Cup 2010,
-								<a href="">Collaborative Filtering Applied to Educational Data Mining</a>.  The applied method
-								is to use <strong>K-Nearest-Neighbor</strong> and <strong>Singular Value Decomposition</strong> models to predict CFA's using
-								a student-step matrix based on student IDs and the interaction steps.  This process is shown with the
-								following diagram:
+								movies or products to their consumers.  Here is an example:
+							</p>
+
+							<img src="images/recommended.png" />
+
+							<p>
+								<ul>
+									<li>All the missing values are predicted based on the existing values.</li>
+									<li>User is recommended the movie which they would rate the highest.</li>
+								</ul>
+							</p>
+
+							<p>
+							  This type of model is applied in the published paper from KDD Cup 2010,
+								<a href="">Collaborative Filtering Applied to Educational Data Mining</a>.  The following table
+								is a comparison between the above example and this dataset:
+							</p>
+
+							<table>
+								<tr>
+									<td><b>Recommender System</b></td>
+									<td><b>KDD Problem</b></td>
+								</tr>
+								<tr>
+									<td>Users</td>
+									<td>Students</td>
+								</tr>
+								<tr>
+									<td>Items</td>
+									<td>Steps of Problems</td>
+								</tr>
+								<tr>
+									<td>Rating, purchases, etc.</td>
+									<td>Correct First Attempt</td>
+								</tr>
+								<tr>
+									<td>User-Item Matrix</td>
+									<td>Student-Step Matrix</td>
+								</tr>
+								<tr>
+									<td colspan=2>The resulting matrix is sparse.</td>
+								</tr>
+								<tr>
+									<td colspan=2>Goal: Predict the missing elements.</td>
+								</tr>
+							</table>
+
+							<h3>Decomposing the Student-Step Matrix</h4>
+
+							<p>
+								Find matrix A and B such that the product of the matrices <img src="http://latex.codecogs.com/gif.latex?AB^{T}" border="0" />
+								approximates the known elements of C.  We then minimized the error with the following equation:
+								<br />
+								<img src="http://latex.codecogs.com/gif.latex?min_{A,B}\| C-AB^{T} \|_{C}^{2}" border="0" />
+							</p>
+
+							<img src="images/matrixVisual.png" />
+
+							<p>
+								Predicting CFA's using a student-step matrix based on student IDs and the interaction steps is shown by the
+								following diagram and equation:
 							</p>
 
 							<img src="images/matrixPred.png" height=70% width=70% />
+							<br />
+							<!-- <img src="http://latex.codecogs.com/gif.latex?\^{c}_{is} = a_{i}^{T} \cdot b_{s}" border="0" width=10% /> -->
+							<img src="images/equation.png" />
 
 							<p>
-								The prediction equation is given:
-								<br />
-								<img src="http://latex.codecogs.com/gif.latex?\^{c}_{is} = a_{i}^{T} \cdot b_{s}" border="0" width=10% />
-								<br />
 								Because we know the features of student s, and we know the features of step i, we can then predict if
 								student s can correctly answer step i.
 							</p>
