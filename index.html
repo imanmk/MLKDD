@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>CS438/638 Team 1 Project</title>
+		<title>CS438/638 Swift</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -24,7 +24,7 @@
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="images/avatar.png" alt="" /></span>
-							<h1 id="title">KDD Cup: Team 1</h1>
+							<h1 id="title">KDD Cup: Swift</h1>
 							<p>Machine Learning Term Project</p>
 							<p>           Professor Wei Ding</p>
 							<p>                  Spring 2016</p>
@@ -53,7 +53,6 @@
 								<li><a href="#methods" id="methods-link" class="skel-layers-ignoreHref"><span class="icon fa-code">Methods</span></a></li>
 								<li><a href="#github" class="skel-layers-ignoreHref"><span class="icon fa-github">Github</span></a></li>
 								<li><a href="#design" id="design-link" class="skel-layers-ignoreHref"><span class="icon fa-gears">Experimental Design</span></a></li>
-								<li><a href="minutes.html#minutes" id="minutes-link" class="skel-layers-ignoreHref"><span class="icon fa-mail-reply-all">Revised Meeting Minutes</span></a></li>
 								<li><a href="reports.html#reports" id="reports-link" class="skel-layers-ignoreHref"><span class="icon fa-calendar">Weekly Meeting Reports</span></a></li>
 							</ul>
 						</nav>
@@ -93,6 +92,9 @@
 							<header>
 								<h2>About Us</h2>
 							</header>
+
+							<h3>We are Swift.</h3>
+							<br />
 
 							<!-- <a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a> -->
 
@@ -234,6 +236,20 @@
 								<br />
 								and outputs to file, "filteredProbByView20.csv".  This file contains 616,977 interaction steps (~80% of filter 1 dataset, "traindataNoDuration.csv").
 							</p>
+
+							<h3>Final Datasets</h3>
+							<p>
+								The final datasets generated for our experiments are the following:
+							</p>
+							<ul>
+								<li>test.csv is 20% of traindataFilteredByView20.csv (Randomly selected)</li>
+								<li>trainValid.csv is 80% of the remaining</li>
+								<li>train.csv is 80% of trainValid.csv (Randomly generated)</li>
+								<li>validation.csv is the remaining 20%</li>
+							</ul>
+							<p>
+								Therefore, our new train.csv has 394,865 rows.
+							</p>
 						</div>
 					</section>
 
@@ -246,6 +262,62 @@
 								<h2>Machine Learning Methods</h2>
 							</header>
 
+							<!-- K-Nearest Neighbors -->
+							<h3>K-Nearest Neighbors</h3>
+
+							<p>
+								K nearest neighbors (KNN) algorithm is a non parametric lazy learning algorithm.
+								It internally stores all the given train data and classifies new test input based on a similarity metric such as distance.
+							</p>
+
+							<p>
+								KNN predicts the value of an input based on the the closest K trained cases.
+								In simple words, let's say in our case we want to predict the CFA on a specific step for a student.
+								Let's also assume that K = 3. Then the algorithm looks at the closest 3 students that answered the
+								same step measured by a distance function. If out of the closest 3 neighbors 2 students have
+								CFA = 1 and one student with CFA = 0 then:
+							</p>
+
+							<ul>
+								<li>
+									<ul>
+										<li>
+											If we choose to classify our test input, then the final CFA is the value that the majority
+											of the 3 neighbors have. Hence, in our case the predicted value for our input is CFA = 1
+										</li>
+										<li>
+											In KNN regression, the predicted value is the average of the values of the input's 3 closest neighbors in our simple example.
+										</li>
+									</ul>
+								</li>
+								<li>
+									<b>Note:</b> It is quite useful to assign weights to the neighbors based on their distances.
+									In other words, the closest neighbor to the given input has higher impact on the prediction result compare to the
+									neighbors that are farther away from the input. Notably, that is also what we did when we applied KNN algorithm to our data.
+								</li>
+							</ul>
+
+							<p>
+								There are 3 main distance functions that can be used in KNN:
+							</p>
+
+							<img src="images/knnDistFuncs.png" />
+							<br />
+							Source: <a href="http://www.saedsayad.com/k_nearest_neighbors.htm">http://www.saedsayad.com/k_nearest_neighbors.htm</a>
+							<br />
+							<br />
+							<p>
+								Choosing the best distance function depends on the datasets. As for high dimensional vectors,
+								Manhattan function might work better than the Euclidean distance function.
+							</p>
+
+							<p>
+								Choosing a "good enough" K is another concern. There is no formula to find the exact best number of neighbors.
+								However we can use the <i>Elbow</i> method <i>to find to a reasonable number for K by plotting error vs. k and find the point
+								where the error is not decreasing significatly (the elbow part).</i>
+							</p>
+
+							<!-- Recommended System -->
 							<h3>Recommended System</h3>
 
 							<p>
@@ -309,6 +381,8 @@
 
 							<img src="images/matrixVisual.png" />
 
+							<h3>Prediction</h3>
+
 							<p>
 								Predicting CFA's using a student-step matrix based on student IDs and the interaction steps is shown by the
 								following diagram and equation:
@@ -344,7 +418,7 @@
 						</div>
 					</section>
 
-				<!-- Github Repository -->
+				<!-- Experimental Design -->
 					<section id="design" class="three">
 						<div class="container">
 
@@ -365,7 +439,7 @@
 
 				<!-- Copyright -->
 					<ul class="copyright">
-						<li>&copy; 2016 MLKDD Team 1. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; 2016 Swift. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 
 			</div>
