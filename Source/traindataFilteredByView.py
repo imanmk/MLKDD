@@ -5,6 +5,7 @@
 
 # Filter traindataNoDuration. Get rid of the
 # unique problems that are also in the given input CSV file.
+#
 
 
 import numpy as np
@@ -34,6 +35,11 @@ def main():
 
     # **************************************************************************
 
+    # write the samples, which the unique problem view in them is not in the
+    # filteredProbByView20.csv. (filteredProbByView20.csv contains all the unique problems
+    # in traindataNoDuration.csv that got viewed less than 20 times)
+
+    
     with open('traindataNoDuration.csv', 'r') as inp, open('traindataFilteredByView20.csv', 'w') as out:
         writer = csv.writer(out)
         i = 0
