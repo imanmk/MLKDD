@@ -159,7 +159,7 @@
 							  preoccupied with doing other things.  Therefore, these steps' Correct First Attempts (CFAs) are not as convincing
 								as other samples.  The following histogram shows this phenomenon:
 							</p>
-							<img src="images/filter1Graph.png" height=70% width=70% />
+							<img src="images/filter1Graph.png" width=70% />
 							<p>
 								<br />
 								Because a step duration of 0-105 seconds covers 95% of interaction steps, such a step duration is likely to be
@@ -226,7 +226,7 @@
 							<p>
 								If these Unique Problem Identifiers were sorted by their Problem View Total, the following graph is generated:
 							</p>
-							<img src="images/uniqueProbTotalViews.png" height=70% width=70% />
+							<img src="images/uniqueProbTotalViews.png" width=70% />
 							<p>
 								As you can see above, most of the problems have a Problem View Total between 0-150.
 							</p>
@@ -248,7 +248,7 @@
 							<p>
 								The final datasets generated for our experiments are the following:
 							</p>
-							<ul>
+							<ul class="default">
 								<li>
 									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/test.csv">test.csv</a> is 20% of
 									<a href="https://github.com/imanmk/MLKDD/blob/master/CSV/traindataFilteredByView20.csv">traindataFilteredByView20.csv</a> (Randomly selected)
@@ -295,9 +295,9 @@
 								CFA = 1 and one student with CFA = 0 then:
 							</p>
 
-							<ul>
+							<ul class="default">
 								<li>
-									<ul>
+									<ol class="default">
 										<li>
 											If we choose to classify our test input, then the final CFA is the value that the majority
 											of the 3 neighbors have. Hence, in our case the predicted value for our input is CFA = 1
@@ -305,7 +305,7 @@
 										<li>
 											In KNN regression, the predicted value is the average of the values of the input's 3 closest neighbors in our simple example.
 										</li>
-									</ul>
+									</ol>
 								</li>
 								<li>
 									<b>Note:</b> It is quite useful to assign weights to the neighbors based on their distances.
@@ -346,7 +346,7 @@
 							<img src="images/recommended.png" />
 
 							<p>
-								<ul>
+								<ul class="default">
 									<li>All the missing values are predicted based on the existing values.</li>
 									<li>User is recommended the movie which they would rate the highest.</li>
 								</ul>
@@ -405,7 +405,7 @@
 								following diagram and equation:
 							</p>
 
-							<img src="images/matrixPred.png" height=70% width=70% />
+							<img src="images/matrixPred.png" width=70% />
 							<br />
 							<!-- <img src="http://latex.codecogs.com/gif.latex?\^{c}_{is} = a_{i}^{T} \cdot b_{s}" border="0" width=10% /> -->
 							<img src="images/equation.png" />
@@ -439,7 +439,7 @@
 
 							<p>
 								<b>Weight Function:</b> For choosing the right weight to be assigned to neighbors, we are going to experiment with different weights, such as:
-								<ul>
+								<ul class="default">
 									<li><i>Uniform:</i> "All points in each neighborhood are weighted equally."</li>
 									<li>
 										<i>Distance:</i> "weight points by the inverse of their distance."
@@ -468,6 +468,76 @@
 								<b>n_jobs:</b> The number of jobs / threads to run for neighbors search. If observed that we need to lower the time complexity
 								of the search we will set this parameter to "-1", which means the number of jobs created is equal to the number of
 								CPU cores we have in our computers.
+							</p>
+
+							<h3>Recommended System</h3>
+
+							<p>
+								For Recommended System, we will test our model with different combinations of parameters and compare the results.
+							</p>
+
+							<p>
+								One of the most important parameters is the number of features (N) we want to create for students and steps.
+								An appropriate N will improve the accuracy of the prediction; however, a very large N would significantly
+								increase the training time.  The number of iterations and learning rate will also affect the result and training
+								time.
+							</p>
+
+							<p>
+								We will train several models and test it using our generated test set, and then tweak parameters as we see fit
+								by comparing results.  Regularization will also be used to prevent overfitting.
+							</p>
+
+							<ul class="default">
+								<li>Features Used from Training Set</li>
+								<li>
+									<ol class="default">
+										<li>Student ID, Problem Hierarchy, Problem Name, Step Name</li>
+										<li>Construct New Feature: Step ID</li>
+										<li>step_id = problem_hierarchy[i] + '/'+ problem_name[i] + '/'+ step_name[i]</li>
+									</ol>
+								</li>
+								<li>
+									Library Used: Factorization Machines in Python:
+									<a href="https://github.com/coreylynch/pyFM">https://github.com/coreylynch/pyFM</a>
+								</li>
+								<br />
+								<li>Input Data</li>
+								<li>
+									<ol class="default">
+										<li>List of Student ID and step_id (described above)</li>
+										<li>List of Correct First Attempt (CFA)</li>
+									</ol>
+								</li>
+								<li>Data Representation</li>
+								<li>
+									<ol class="default">
+										<li>
+											Lists of standard Python dict objects, where the dict elements map each instance's categorical
+											and real valued variables to its values.
+										</li>
+										<li>
+											Use <a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.DictVectorizer.html">sklearn DictVectorizer</a>
+											to convert them to a matrix
+										</li>
+									</ol>
+								</li>
+							</ul>
+
+							<p>
+								We will then introduce bias including
+								<img src="http://latex.codecogs.com/gif.latex?\mu" border="0" /> (overall mean CFA),
+								<img src="http://latex.codecogs.com/gif.latex?\mu_{s}" border="0" /> (mean CFA of a certain student s), and
+								<img src="http://latex.codecogs.com/gif.latex?\mu_{i}" border="0" /> (mean CFA of a certain step i).
+								<br />
+								The resulting prediction equation is:
+								<br />
+								<img src="http://latex.codecogs.com/gif.latex?c_{is} = \mu + \mu_{s} + \mu_{i} + a_{i}^{T}b_{s}" border="0" width=20% />
+							</p>
+
+							<p>
+								After we train the KNN and Recommender System models, we will use some stacking algorithm to combine the results from each of our models.
+								In phase one, the linear blender gave us fairly good results, but we will try more algorithms, both linear and nonlinear ones, in the final phase.
 							</p>
 
 						</div>
