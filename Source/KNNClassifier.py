@@ -120,7 +120,7 @@ Y = cfa
 # looks up the keys for input from dict
 # passes the values to KNN function
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=107, weights='distance', algorithm='auto')
+knn = neighbors.KNeighborsClassifier(n_neighbors=41, weights='distance', algorithm='auto')
 knn.fit(X, Y)
 
 
