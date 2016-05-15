@@ -1,7 +1,7 @@
 import numpy as np
+from scipy import linalg
 import pandas as pd
 from sklearn import preprocessing
-from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import mean_squared_error
 import time
@@ -49,20 +49,20 @@ def main():
     Y = correct_first_attempt
 
     # train the SVD model
-    print('Training the TruncatedSVD model...')
-    svd = TruncatedSVD() # use default parameters
-    svd.fit(X, Y)
+    print('Training the SVD model...')
+    print(X)
+    U, s, Vh = linalg.svd(X) # use default parameters
 
     print('\n\n\n')
     # show svd attributes
-    print('Components:')
-    print(svd.components_)
+    print('U (left singular vectors as columns):')
+    print(U)
 
-    print('SVD explained variance ratio:')
-    print(svd.explained_variance_ratio_)
+    print('singular values:')
+    print(s)
 
-    print('SVD EVR Sum:')
-    print(svd.explained_variance_ratio_.sum())
+    print('Vh (right singular vectors as rows):')
+    print(Vh)
 
     # test the model
     #print('Testing SVD with test.csv...')
