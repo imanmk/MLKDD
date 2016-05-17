@@ -14,7 +14,7 @@ start_time = time.time()
 print("Welcome to KDD KNN Classifier! :) ")
 
 # import data file
-dataFile = pd.read_csv("knnt1.csv", header=0)
+dataFile = pd.read_csv("1k.csv", header=0)
 
 # CFA is our Y
 cfa = dataFile['Correct First Attempt'].ravel(order='C')
@@ -48,20 +48,6 @@ studentId_dict = dict(zip(studentId, encoded_studentId))
 stepName_dict = dict(zip(stepName, encoded_stepName))
 problemh_dict = dict(zip(problemh,encoded_problemh))
 
-# print("studentId_dict: ", studentId_dict)
-# print("stepName_dict: ", stepName_dict)
-
-
-# **************************************************************************
-
-
-# we need a matrix like this for our X in fit():
-# [ [6  103432]
-#   [6  162908]
-#   [6  93298]
-#    ... ]
-# each row consists of an element from encoded_studentId and one element from encoded_stepName.
-# dimensions = 809694 x 2
 
 
 
@@ -90,7 +76,7 @@ Y = cfa
 # looks up the keys for input from dict
 # passes the values to KNN function
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=41, weights='distance', algorithm='auto')
+knn = neighbors.KNeighborsClassifier(n_neighbors=131, weights='distance', algorithm='auto')
 knn.fit(X, Y)
 
 
@@ -127,7 +113,7 @@ def predict(encoded_studentId, encoded_stepName, encoded_problemh):
     for row in range(len(encoded_studentId)):
         prediction = knn.predict_proba([[encoded_studentId[row], encoded_stepName[row],encoded_problemh[row]]])
         prediction_array = np.append(prediction_array, prediction[0, 1])
-        print("Prediction for row {:d} = {:f}".format(row, prediction[0, 1]))
+        #print("Prediction for row {:d} = {:f}".format(row, prediction[0, 1]))
 
     print("prediction_array: ", prediction_array)
 
@@ -145,7 +131,7 @@ def calculate_rmse(prediction_array, ground_truth_array):
     for i in range(len(ground_truth_array)):
         if abs(ground_truth_array[i] - prediction_array[i]) > 0.3:
             num+=1
-    print(num)
+    print("num =",num)
 
 # **************************************************************************
 
@@ -153,7 +139,7 @@ def calculate_rmse(prediction_array, ground_truth_array):
 def main():
 
     #testFileName = input("Please enter your test file name: ")
-    testFile = pd.read_csv('knntt1.csv', header=0)
+    testFile = pd.read_csv('0.2kk.csv', header=0)
 
     print("Loading... :) ")
 
@@ -198,4 +184,17 @@ if __name__ == '__main__':
 
 
 print("--- Total time: %s seconds ---" % (time.time() - start_time))
+
+# **************************************************************************
+
+
+
+
+
+
+
+
+
+# **************************************************************************
+
 
