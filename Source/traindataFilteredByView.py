@@ -39,7 +39,7 @@ def main():
     # filteredProbByView20.csv. (filteredProbByView20.csv contains all the unique problems
     # in traindataNoDuration.csv that got viewed less than 20 times)
 
-    
+
     with open('traindataNoDuration.csv', 'r') as inp, open('traindataFilteredByView20.csv', 'w') as out:
         writer = csv.writer(out)
         i = 0
