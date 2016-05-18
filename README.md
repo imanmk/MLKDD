@@ -1,6 +1,3 @@
-README.md
-=========
-
 Machine Learning Project Based on KDD Cup 2010
 -----------------------------------------------
 
