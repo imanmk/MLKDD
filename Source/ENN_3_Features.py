@@ -24,10 +24,10 @@ studentId = dataFile['Anon Student Id'].ravel(order='C')
 
 dataFile = dataFile.replace(np.nan, '')
 cfa = dataFile["Correct First Attempt"]
-for item in cfa:
-    print(item)
-
-print(len(cfa))
+# for item in cfa:
+#     print(item)
+#
+# print(len(cfa))
 
 
 
@@ -37,7 +37,7 @@ cfa = dataFile['Correct First Attempt'].ravel(order='C')
 # Student ID and Step ID will be our X   (input for prediction)
 studentId = dataFile['Anon Student Id'].ravel(order='C')
 stepName = dataFile['Step Name'].ravel(order='C')
-problemh= dataFile['Problem Hierarchy'].ravel(order='C')
+problemh = dataFile['Problem Hierarchy'].ravel(order='C')
 # **************************************************************************
 
 # Generate label encoders

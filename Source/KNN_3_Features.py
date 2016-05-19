@@ -1,3 +1,8 @@
+
+# KNN classifier with 3 features for KDD term project
+# KNN_3_Features.py
+# 5/17/16
+
 import numpy as np
 import pandas as pd
 from sklearn import neighbors
@@ -22,7 +27,7 @@ cfa = dataFile['Correct First Attempt'].ravel(order='C')
 # Student ID and Step ID will be our X   (input for prediction)
 studentId = dataFile['Anon Student Id'].ravel(order='C')
 stepName = dataFile['Step Name'].ravel(order='C')
-problemh = dataFile['Problem Hierarchy'].ravel(order='C')
+problemHierarchy = dataFile['Problem Hierarchy'].ravel(order='C')
 
 
 
@@ -32,12 +37,12 @@ problemh = dataFile['Problem Hierarchy'].ravel(order='C')
 # Generate label encoders
 le_studentId = preprocessing.LabelEncoder()
 le_stepName = preprocessing.LabelEncoder()
-le_problemh = preprocessing.LabelEncoder()
+le_problemHierarchy = preprocessing.LabelEncoder()
 
 # Encode student id and step name values
 encoded_studentId = le_studentId.fit_transform(studentId)
 encoded_stepName = le_stepName.fit_transform(stepName)
-encoded_problemh = le_problemh.fit_transform(problemh)
+encoded_problemHierarchy = le_problemHierarchy.fit_transform(problemHierarchy)
 
 # **************************************************************************
 
@@ -46,7 +51,7 @@ encoded_problemh = le_problemh.fit_transform(problemh)
 
 studentId_dict = dict(zip(studentId, encoded_studentId))
 stepName_dict = dict(zip(stepName, encoded_stepName))
-problemh_dict = dict(zip(problemh,encoded_problemh))
+problemHierarchy_dict = dict(zip(problemHierarchy,encoded_problemHierarchy))
 
 # print("studentId_dict: ", studentId_dict)
 # print("stepName_dict: ", stepName_dict)
@@ -68,7 +73,7 @@ problemh_dict = dict(zip(problemh,encoded_problemh))
 x_array = []
 
 for i in range(len(encoded_studentId)):
-    x_array.append([encoded_studentId[i], encoded_stepName[i],encoded_problemh[i]])
+    x_array.append([encoded_studentId[i], encoded_stepName[i],encoded_problemHierarchy[i]])
 
 # Convert x_array to np matrix
 X = np.matrix(x_array)
@@ -91,21 +96,22 @@ Y = cfa
 # passes the values to KNN function
 
 # num neighbors
-k = 267
+k = 127
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=k, weights='distance', algorithm='auto')
+knn = neighbors.KNeighborsClassifier(n_neighbors=k, weights='distance', algorithm='auto',
+                                     leaf_size=200)
 knn.fit(X, Y)
 
 
 # **************************************************************************
 
-def predict_single_cfa(studentId, stepName,problemh,problemn):
+def predict_single_cfa(studentId, stepName,problemHierarchy):
     encoded_student_id = studentId_dict.get(studentId)
     print("encoded_student_id: ", encoded_student_id)
     encoded_step_name = stepName_dict.get(stepName)
     print("encoded_step_name: ", encoded_step_name)
-    encoded_problemh = problemh_dict.get(problemh)
-    print("encoded_problemh: ", encoded_problemh)
+    encoded_problemh = problemHierarchy_dict.get(problemHierarchy)
+    print("encoded_problemHierarchy: ", encoded_problemh)
     prediction = knn.predict([[encoded_student_id, encoded_step_name, encoded_problemh]])
     print("prediction: ", prediction[0])
 
@@ -166,33 +172,33 @@ def main():
     # Student ID and Step ID will be our X   (input for prediction)
     test_studentId = testFile['Anon Student Id'].ravel(order='C')
     test_stepName = testFile['Step Name'].ravel(order='C')
-    test_problemh = testFile['Problem Hierarchy'].ravel(order='C')
+    test_problemHierarchy = testFile['Problem Hierarchy'].ravel(order='C')
     test_row = testFile['Row'].ravel(order='C')
     # Generate label encoders
     le_test_studentId = preprocessing.LabelEncoder()
     le_test_stepName = preprocessing.LabelEncoder()
-    le_test_problemh = preprocessing.LabelEncoder()
+    le_test_problemHierarchy = preprocessing.LabelEncoder()
 
     # Encode student id and step name values
     encoded_test_studentId = le_test_studentId.fit_transform(test_studentId)
     encoded_test_stepName = le_test_stepName.fit_transform(test_stepName)
-    encoded_test_problemh = le_test_problemh.fit_transform(test_problemh)
+    encoded_test_problemHierarchy = le_test_problemHierarchy.fit_transform(test_problemHierarchy)
 
-    prediction_array = predict(encoded_test_studentId, encoded_test_stepName, encoded_problemh)
+    prediction_array = predict(encoded_test_studentId, encoded_test_stepName, encoded_problemHierarchy)
 
     calculate_rmse(prediction_array, ground_truth_array)
 
 
     # Save results in a CSV:
 
-    # with open('test_result_k107.csv', 'w') as csvfile:
-    #     fieldnames = ['Row', 'Student ID', 'Correct First Attempt', 'Ground Truth']
-    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    #     writer.writeheader()
-    #     for x in range(len(test_studentId)):
-    #         writer.writerow(
-    #             {'Row': test_row[x], 'Student ID': test_studentId[x], 'Correct First Attempt': prediction_array[x],
-    #             'Ground Truth': ground_truth_array[x]})
+    with open('knn_3_features_k127.csv', 'w') as csvfile:
+        fieldnames = ['Row', 'Student ID', 'Correct First Attempt', 'Ground Truth']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for x in range(len(test_studentId)):
+            writer.writerow(
+                {'Row': test_row[x], 'Student ID': test_studentId[x], 'Correct First Attempt': prediction_array[x],
+                'Ground Truth': ground_truth_array[x]})
 
 # **************************************************************************
 

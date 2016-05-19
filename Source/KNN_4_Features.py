@@ -14,7 +14,7 @@ start_time = time.time()
 print("Welcome to KDD KNN Classifier! :) ")
 
 # import data file
-dataFile = pd.read_csv("tdnd.csv", header=0)
+dataFile = pd.read_csv("trainValid.csv", header=0)
 
 # CFA is our Y
 cfa = dataFile['Correct First Attempt'].ravel(order='C')
@@ -93,7 +93,10 @@ Y = cfa
 # looks up the keys for input from dict
 # passes the values to KNN function
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=41, weights='distance', algorithm='auto')
+# number of neighbors k
+k = 1001
+
+knn = neighbors.KNeighborsClassifier(n_neighbors=k, weights='distance', algorithm='auto')
 knn.fit(X, Y)
 
 
@@ -154,7 +157,7 @@ def calculate_rmse(prediction_array, ground_truth_array):
 def main():
 
     #testFileName = input("Please enter your test file name: ")
-    testFile = pd.read_csv('tdnd.csv', header=0)
+    testFile = pd.read_csv('test.csv', header=0)
 
     print("Loading... :) ")
 
@@ -180,28 +183,29 @@ def main():
     le_test_problemn = preprocessing.LabelEncoder()
     encoded_test_problemn = le_problemh.fit_transform(problemn)
 
-    prediction_array = predict(encoded_test_studentId, encoded_test_stepName, encoded_problemh,\
+    prediction_array = predict(encoded_test_studentId, encoded_test_stepName, encoded_problemh,
         encoded_problemn)
 
     calculate_rmse(prediction_array, ground_truth_array)
 
     # Save results in a CSV:
 
-    # with open('test_result_k107.csv', 'w') as csvfile:
-    #     fieldnames = ['Row', 'Student ID', 'Correct First Attempt', 'Ground Truth']
-    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    #     writer.writeheader()
-    #     for x in range(len(test_studentId)):
-    #         writer.writerow(
-    #             {'Row': test_row[x], 'Student ID': test_studentId[x], 'Correct First Attempt': prediction_array[x],
-    #             'Ground Truth': ground_truth_array[x]})
+    with open('knn_4_features_k1001.csv', 'w') as csvfile:
+        fieldnames = ['Row', 'Student ID', 'Correct First Attempt', 'Ground Truth']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for x in range(len(test_studentId)):
+            writer.writerow(
+                {'Row': test_row[x], 'Student ID': test_studentId[x], 'Correct First Attempt': prediction_array[x],
+                'Ground Truth': ground_truth_array[x]})
 
 # **************************************************************************
 
 if __name__ == '__main__':
     main()
 
-
+print("K = ", k)
+print("KNN Classifier with 4 Features")
 print("--- Total time: %s seconds ---" % (time.time() - start_time))
 
 
