@@ -1,51 +1,60 @@
-README.md
-=========
-
 Machine Learning Project Based on KDD Cup 2010
 -----------------------------------------------
 
 
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or 
-overview that explains **what** the project is. This description should 
-match descriptions added for package managers (Gemspec, package.json, 
-etc.)
+Machine learning methods are applied to the KDD Cup 2010's Educational 
+Data Mining competition's datasets, found [here.](https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp)
 
-## Code Example
+Python 3 libraries used:
 
-Show what the library does as concisely as possible, developers should 
-be able to figure out **how** your project solves their problem by 
-looking at the code example. Make sure the API you are showing off is 
-obvious, and that your code is short and concise.
+* numpy/scipy
+* pandas
+* scikit-learn
+
+All of these can be installed with [Anaconda for Python 3.](https://www.continuum.io/downloads)
 
 ## Motivation
 
-A short description of the motivation behind the creation and 
-maintenance of the project. This should explain **why** the project 
-exists.
+This project was completed for Professor Ding's Spring 2016 Applied 
+Machine Learning course at **UMass Boston**. Our main motivation is 
+to understand the basic fundamentals of important machine learning 
+concepts.
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+Clone the project with the following:
+
+    git clone https://github.com/imanmk/MLKDD.git
+
+After installing [Anaconda](https://www.continuum.io/downloads), it is 
+recommended to put the python executable in your $PATH environment 
+variable:
+
+    export PATH="/directory/to/anaconda3/bin:$PATH"
 
 ## API Reference
 
-Depending on the size of the project, if it is small and simple enough 
-the reference docs can be added to the README. For medium size to larger 
-projects it is important to at least provide a link to where the API 
-reference docs live.
+API Documentation for pandas DataFrames can be found here:
+http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html
 
-## Tests
+Importing a CSV file to a pandas DataFrame is as simple as a function call:
 
-Describe and show how to run the tests with code examples.
+    import pandas as pd
+    df = pd.read_csv("train.csv", header=0)
 
-## Contributors
 
-Let people know how they can dive into the project, include important 
-links to things like issue trackers, irc, twitter accounts if 
-applicable.
+API Documentation for scikit-learn can be found here:
+http://scikit-learn.org/stable/modules/classes.html
 
-## License
+Some examples of packages used are:
+* sklearn.preprocessing.LabelEncoder() - converting Nominal features to Numeric features.
+* sklearn.neighbors.KNeighborsClassifier() - K-Nearest-Neighbors implementation
+* sklearn.metrics.mean_squared_error() - RMSE calculator
 
-Under the terms of the GNU General Public License
+## Questions? Comments?
+
+Our contact information can be found on our gh-pages website here:
+http://imanmk.github.io/MLKDD/#about
+
