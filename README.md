@@ -34,6 +34,9 @@ variable:
 
     export PATH="/directory/to/anaconda3/bin:$PATH"
 
+Note: Our CSV files can be found here:
+https://github.com/imanmk/MLKDD/tree/master/CSV
+
 ## API Reference
 
 API Documentation for pandas DataFrames can be found here:
